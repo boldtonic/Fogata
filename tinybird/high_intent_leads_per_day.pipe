@@ -1,0 +1,17 @@
+DESCRIPTION >
+    High-intent leads grouped by day. Use min_score to adjust the threshold (default 70).
+
+NODE endpoint
+SQL >
+    %
+    SELECT
+        toDate(scored_at)             AS day,
+        count()                       AS total_hot_leads,
+        round(avg(fit_score), 1)      AS avg_score,
+        groupArray(10)(name)          AS top_leads
+    FROM scored_leads
+    WHERE fit_score >= {{ Int32(min_score, 70) }}
+    GROUP BY day
+    ORDER BY day DESC
+
+TYPE endpoint
