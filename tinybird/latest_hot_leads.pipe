@@ -1,0 +1,28 @@
+DESCRIPTION >
+    Most recent high-intent leads (fit_score >= 70). Use limit to control how many to return (default 20).
+
+TOKEN "fogata_read" READ
+
+NODE endpoint
+SQL >
+    %
+    SELECT
+        place_id,
+        name,
+        category,
+        city,
+        country,
+        domain,
+        website,
+        rating,
+        reviews_count,
+        fit_score,
+        fit_reasons,
+        source,
+        scored_at
+    FROM scored_leads
+    WHERE fit_score >= 70
+    ORDER BY scored_at DESC
+    LIMIT {{ Int32(limit, 20) }}
+
+TYPE endpoint

@@ -98,6 +98,41 @@ Leads scoring ≥ 70 are surfaced at the top of every list.
 
 ---
 
+## Real-time analytics with Tinybird
+
+Every lead Fogata scores is streamed in real time to [Tinybird](https://tinybird.co), giving you live dashboards and API endpoints on top of your prospecting data.
+
+**What is streamed:** company name, category, city, domain, rating, review count, fit score, score reasons, source query, and timestamp — one row per scored lead.
+
+**Endpoints published:**
+
+| Endpoint | Description | Key param |
+|---|---|---|
+| `high_intent_leads_per_day` | Hot leads (score ≥ 70) grouped by day — count, avg score, top names | `min_score` (default 70) |
+| `latest_hot_leads` | Most recent hot leads, newest first — built for alerting | `limit` (default 20) |
+
+**Setup:**
+
+```bash
+# 1. Install Tinybird CLI
+pip install tinybird-cli
+
+# 2. Authenticate (opens browser — log into your Tinybird account)
+tb login
+
+# 3. Deploy datasource + endpoints to Tinybird Cloud
+cd tinybird
+tb push
+
+# 4. Create an append-only token in the Tinybird dashboard:
+#    https://app.tinybird.co/tokens
+#    Add TINYBIRD_APPEND_TOKEN to your .env
+```
+
+If `TINYBIRD_APPEND_TOKEN` is not set, streaming is silently skipped — Fogata works normally.
+
+---
+
 ## License
 
 MIT — see [LICENSE](LICENSE) for details.

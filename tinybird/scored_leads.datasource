@@ -1,0 +1,21 @@
+TOKEN "fogata_append" APPEND
+
+SCHEMA >
+    `place_id`     String,
+    `name`         String,
+    `category`     String,
+    `city`         String,
+    `country`      String,
+    `domain`       String,
+    `website`      String,
+    `rating`       Float32,
+    `reviews_count` Int32,
+    `fit_score`    Int32,
+    `fit_reasons`  String,
+    `source`       String,
+    `source_query` String,
+    `scored_at`    DateTime
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(scored_at)"
+ENGINE_SORTING_KEY "scored_at, fit_score"

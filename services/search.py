@@ -12,6 +12,7 @@ from api_clients.scraper import WebsiteScraper
 from models import Lead
 from scoring import LeadScorer
 from services.enrichment import compute_enrichment_signals
+from services.tinybird import stream_scored_lead
 from utils import extract_domain, is_business_domain, log_dev
 
 # Google Places appends these generic types to virtually every result — strip them
@@ -542,6 +543,7 @@ def _step_score(job_id, leads, config, job_mgr):
         score, reasons = scorer.score(lead)
         lead.fit_score = score
         lead.fit_reasons = reasons
+        stream_scored_lead(lead)
 
     lead_list.sort(key=lambda x: x.fit_score, reverse=True)
 
