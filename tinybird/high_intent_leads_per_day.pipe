@@ -1,6 +1,8 @@
 DESCRIPTION >
     High-intent leads grouped by day. Use min_score to adjust the threshold (default 70).
 
+TOKEN "fogata_read" READ
+
 NODE endpoint
 SQL >
     %

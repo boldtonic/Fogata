@@ -1,3 +1,5 @@
+TOKEN "fogata_append" APPEND
+
 SCHEMA >
     `place_id`     String,
     `name`         String,
